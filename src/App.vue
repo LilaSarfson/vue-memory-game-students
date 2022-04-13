@@ -3,8 +3,17 @@
 import pokedex from "./assets/pokedex.json";
 import backCard from "./assets/back-card.png";
 import Card from "./components/Card.vue";
+import ChessBoard from "./components/ChessBoard.vue";
 let pokeArray = pokedex.slice(0, 10);
-console.log(pokeArray);
+
+let pokeArraySaneado = pokeArray.map(function (e) {
+  return {
+    id: e.id,
+    name: e.name.english,
+    img: `/pokemons/${e.id.toString().padStart(3, 0)}.png`,
+  };
+});
+pokeArray = pokeArraySaneado;
 </script>
 
 <template>
@@ -13,28 +22,12 @@ console.log(pokeArray);
   </header>
 
   <main>
-    <Card :back="backCard" front="/pokemons/666.png" :reveal="false"></Card>
+    <ChessBoard :cards="pokeArray" :backCardImage="backCard" />
   </main>
 </template>
 
 <style>
 @import "./assets/base.css";
-
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-}
 
 @media (hover: hover) {
   a:hover {
@@ -45,22 +38,6 @@ a,
 @media (min-width: 1024px) {
   body {
     display: flex;
-  }
-
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
   }
 }
 </style>

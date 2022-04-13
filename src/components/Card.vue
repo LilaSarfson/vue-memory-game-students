@@ -13,6 +13,6 @@ const props = defineProps({
 
 <style>
 img {
-  width: 200px;
+  width: clamp(100px, 18vw, 175px);
 }
 </style>
